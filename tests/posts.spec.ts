@@ -46,6 +46,6 @@ test.describe('Post API Tests', () => {
 
   test('should delete a post', async () => {
     const response = await apiClient.delete('/posts/1');
-    expect(response).toEqual({"sadasdas": 22});
+    expect(response).toEqual({});
   });
 });
