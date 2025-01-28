@@ -30,6 +30,13 @@ jobs:
       - name: Run Playwright tests
         run: npm run test
 
+      # Install Allure CLI
+      - name: Install Allure CLI
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.20.0/allure-2.20.0.zip
+          unzip allure-2.20.0.zip -d /home/runner/allure
+          export PATH="/home/runner/allure/bin:$PATH"
+
       # Generate and save Allure results
       - name: Prepare Allure Report
         run: |
