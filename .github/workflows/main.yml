@@ -37,42 +37,13 @@ jobs:
         if: success() || failure()
         
       - name: Debug Allure Report Directory
+        if: always()
         run: ls -l ./allure-report
 
       # Deploy Allure report to GitHub Pages
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
+        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
-
-
-  #     # Upload Allure report as artifact
-  #     - name: Upload Allure Report Artifact
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: allure-report
-  #         path: ./allure-report
-
-  # deploy-report:
-  #   needs: run-tests
-  #   runs-on: ubuntu-latest
-  #   if: always()
-
-  #   steps:
-  #     # Checkout the repository
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-  #     # Pull Allure report artifact from previous job
-  #     - name: Download Allure Report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: allure-report
-
-  #     # Deploy Allure report to GitHub Pages
-  #     - name: Deploy Allure Report to GitHub Pages
-  #       uses: peaceiris/actions-gh-pages@v3
-  #       with:
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #         publish_dir: ./allure-report
