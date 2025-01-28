@@ -1,0 +1,21 @@
+{
+  "name": "rp-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@reportportal/agent-js-playwright": "^5.1.11",
+    "allure-playwright": "^3.0.9",
+    "playwright": "^1.50.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
