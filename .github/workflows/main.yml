@@ -18,25 +18,14 @@ jobs:
           cache: "npm"
 
       - name: Clean and install dependencies
-        run: |
-          rm -rf node_modules
-          npm ci
+        run: npm ci
 
-      - name: Cache Node Modules
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      - name: Check Installed Packages
+        run: npm list --depth=0
 
-      - name: Save Dependencies
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-modules
-          path: node_modules
-          retention-days: 1  # Keep artifacts for 1 day
-
+      - name: Run ESLint
+        run: npx eslint . --max-warnings=0
+  
   run_tests:
     name: Run Tests
     runs-on: ubuntu-latest
