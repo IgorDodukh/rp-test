@@ -8,43 +8,77 @@ on:
   pull_request:
 
 jobs:
-  run-tests:
+  build:
+    name: Build & Install Dependencies
     runs-on: ubuntu-latest
-
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      # Run Playwright tests
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Save Dependencies
+        uses: actions/upload-artifact@v3
+        with:
+          name: node-modules
+          path: node_modules
+
+  run_tests:
+    name: Run Playwright Tests
+    runs-on: ubuntu-latest
+    needs: build  # Waits for the 'build' job to finish
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Restore Node Modules
+        uses: actions/download-artifact@v3
+        with:
+          name: node-modules
+          path: node_modules
+
       - name: Run Playwright tests
         run: npm run test
 
-      # Generate and save Allure results
-      - name: Prepare Allure Report
+      - name: Generate Allure Report
         run: |
           npx allure-commandline generate ./allure-results --clean -o ./allure-report
         if: success() || failure()
-        
-      - name: Debug Allure Report Directory
-        if: always()
-        run: ls -l ./allure-report
 
-      # Deploy Allure report to GitHub Pages
+      - name: Save Allure Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: ./allure-report
+
+  send_reports:
+    name: Deploy Allure Report
+    runs-on: ubuntu-latest
+    needs: run_tests  # Waits for 'run_tests' job to finish
+    steps:
+      - name: Download Allure Report
+        uses: actions/download-artifact@v3
+        with:
+          name: allure-report
+          path: ./allure-report
+
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./allure-report
-          keep_files: true  # Ensures that files aren't overwritten, maintaining history
+          keep_files: true  # Ensures history is maintained
