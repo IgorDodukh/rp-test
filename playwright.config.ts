@@ -29,7 +29,8 @@ import { PlaywrightTestConfig } from '@playwright/test';
 //   };
 
   const config: PlaywrightTestConfig = {
-    reporter: [["line"], ["allure-playwright"]],
+    reporter: [["json", { outputFile: 'test-results/results.json' }]],
+    // reporter: [["line"], ["allure-playwright"]],
 
     testDir: './tests',
     timeout: 30000,
