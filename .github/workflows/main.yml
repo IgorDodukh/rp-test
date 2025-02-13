@@ -48,6 +48,9 @@ jobs:
           name: node-modules
           path: node_modules
 
+      - name: Check Installed Packages
+        run: npm list --depth=0
+
       - name: Run Playwright tests
         run: npm run test
 
