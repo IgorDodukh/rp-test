@@ -19,7 +19,7 @@ jobs:
 
       - name: Clean and install dependencies
         run: |
-          rm -rf node_modules package-lock.json
+          rm -rf node_modules
           npm ci
 
       - name: Cache Node Modules
