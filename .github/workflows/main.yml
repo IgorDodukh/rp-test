@@ -56,7 +56,7 @@ jobs:
           MISSION_ID: ${{ github.event.inputs.mission_id }}
           INCLUSIONS: ${{ github.event.inputs.inclusions }}
           EXCLUSIONS: ${{ github.event.inputs.exclusions }}
-        run: npm run test"
+        run: npm run test
 
       - name: Save Playwright Report
         uses: actions/upload-artifact@v4
