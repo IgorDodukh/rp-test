@@ -1,5 +1,8 @@
 import { test, expect, APIRequestContext, request as playwrightRequest } from '@playwright/test';
 import { ApiClient } from '../utils/apiClient';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 test.describe('Post API Tests', () => {
   let apiClient: ApiClient;
