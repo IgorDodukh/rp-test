@@ -7,9 +7,9 @@ test.describe('Post API Tests', () => {
   let apiContext: APIRequestContext;
 
   test.beforeAll(async () => {
-    program.option('--baseUrl <url>');
-    program.option('--apiKey <key>');
-    program.option('--env <env>');
+    program.option('--baseUrl');
+    program.option('--apiKey');
+    program.option('--env');
     program.parse(process.argv);
 
     // Manually create a new APIRequestContext
