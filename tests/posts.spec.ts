@@ -1,11 +1,17 @@
 import { test, expect, APIRequestContext, request as playwrightRequest } from '@playwright/test';
 import { ApiClient } from '../utils/apiClient';
+import { program } from 'commander';
 
 test.describe('Post API Tests', () => {
   let apiClient: ApiClient;
   let apiContext: APIRequestContext;
 
   test.beforeAll(async () => {
+    program.option('--baseUrl <url>');
+    program.option('--apiKey <key>');
+    program.option('--env <env>');
+    program.parse(process.argv);
+
     // Manually create a new APIRequestContext
     apiContext = await playwrightRequest.newContext({
       baseURL: 'https://jsonplaceholder.typicode.com', // Define base URL here or use from config
@@ -18,6 +24,12 @@ test.describe('Post API Tests', () => {
     const posts = await apiClient.get('/posts');
     expect(posts).toBeInstanceOf(Array);
     expect(posts.length).toBeGreaterThan(0);
+
+    const options = program.opts();
+
+    console.log("Base URL:", options.baseUrl);
+    console.log("API Key:", options.apiKey);
+    console.log("Environment:", options.env);
   });
 
   test('should fetch all posts again', async () => {

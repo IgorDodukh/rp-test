@@ -58,7 +58,7 @@ jobs:
           echo "Exclusions: ${{ github.event.inputs.exclusions }}"
 
       - name: Run Playwright tests
-        run: npm run test
+        run: npm run test -- --baseUrl="${{ github.event.inputs.mission_id }}" --apiKey="${{ github.event.inputs.inclusions }}" --env="${{ github.event.inputs.exclusions }}"
 
       - name: Save Playwright Report
         uses: actions/upload-artifact@v4
