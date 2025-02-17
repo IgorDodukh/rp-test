@@ -1,16 +1,11 @@
 import { test, expect, APIRequestContext, request as playwrightRequest } from '@playwright/test';
 import { ApiClient } from '../utils/apiClient';
-import { program } from 'commander';
 
 test.describe('Post API Tests', () => {
   let apiClient: ApiClient;
   let apiContext: APIRequestContext;
 
   test.beforeAll(async () => {
-    program.option('--baseUrl');
-    program.option('--apiKey');
-    program.option('--env');
-    program.parse(process.argv);
 
     // Manually create a new APIRequestContext
     apiContext = await playwrightRequest.newContext({
@@ -25,11 +20,9 @@ test.describe('Post API Tests', () => {
     expect(posts).toBeInstanceOf(Array);
     expect(posts.length).toBeGreaterThan(0);
 
-    const options = program.opts();
-
-    console.log("Base URL:", options.baseUrl);
-    console.log("API Key:", options.apiKey);
-    console.log("Environment:", options.env);
+    console.log("Base URL:", process.env.BASE_URL);
+    console.log("API Key:", process.env.API_KEY);
+    console.log("Environment:", process.env.ENV);
   });
 
   test('should fetch all posts again', async () => {

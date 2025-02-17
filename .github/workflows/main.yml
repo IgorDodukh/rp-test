@@ -51,14 +51,12 @@ jobs:
       - name: Clean and install dependencies
         run: npm ci
 
-      - name: List test params
-        run: |
-          echo "Mission ID: ${{ github.event.inputs.mission_id }}"
-          echo "Inclusions: ${{ github.event.inputs.inclusions }}"
-          echo "Exclusions: ${{ github.event.inputs.exclusions }}"
-
       - name: Run Playwright tests
-        run: npm run test -- --baseUrl "${{ github.event.inputs.mission_id }}" --apiKey "${{ github.event.inputs.inclusions }}" --env "${{ github.event.inputs.exclusions }}"
+        env:
+          MISSION_ID: ${{ github.event.inputs.mission_id }}
+          INCLUSIONS: ${{ github.event.inputs.inclusions }}
+          EXCLUSIONS: ${{ github.event.inputs.exclusions }}
+        run: npm run test"
 
       - name: Save Playwright Report
         uses: actions/upload-artifact@v4
