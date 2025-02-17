@@ -2,13 +2,13 @@ import { test, expect, APIRequestContext, request as playwrightRequest } from '@
 import { ApiClient } from '../utils/apiClient';
 import dotenv from 'dotenv';
 
-dotenv.config();
 
 test.describe('Post API Tests', () => {
   let apiClient: ApiClient;
   let apiContext: APIRequestContext;
 
   test.beforeAll(async () => {
+    dotenv.config();
 
     // Manually create a new APIRequestContext
     apiContext = await playwrightRequest.newContext({
