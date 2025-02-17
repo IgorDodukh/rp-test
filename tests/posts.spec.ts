@@ -2,13 +2,14 @@ import { test, expect, APIRequestContext, request as playwrightRequest } from '@
 import { ApiClient } from '../utils/apiClient';
 import dotenv from 'dotenv';
 
+dotenv.config();
+
 
 test.describe('Post API Tests', () => {
   let apiClient: ApiClient;
   let apiContext: APIRequestContext;
 
   test.beforeAll(async () => {
-    dotenv.config();
 
     // Manually create a new APIRequestContext
     apiContext = await playwrightRequest.newContext({
@@ -23,9 +24,9 @@ test.describe('Post API Tests', () => {
     expect(posts).toBeInstanceOf(Array);
     expect(posts.length).toBeGreaterThan(0);
 
-    console.log("Base URL:", process.env.BASE_URL);
-    console.log("API Key:", process.env.API_KEY);
-    console.log("Environment:", process.env.ENV);
+    console.log("MISSION_ID:", process.env.MISSION_ID);
+    console.log("INCLUSIONS:", process.env.INCLUSIONS);
+    console.log("EXCLUSIONS:", process.env.EXCLUSIONS);
   });
 
   test('should fetch all posts again', async () => {
