@@ -2,6 +2,17 @@ name: Playwright Tests with Allure Reports
 
 on:
   workflow_dispatch: # Manually trigger the workflow
+    inputs:
+      mission_id:
+        description: 'Mission ID'     
+        required: true
+        default: '0'
+      inclusions:
+        description: 'Product inclusions'  
+        required: true
+      exclusions:
+        description: 'Product exclusions'
+        required: true
 
 jobs:
   allocate_mission:
@@ -39,6 +50,12 @@ jobs:
 
       - name: Clean and install dependencies
         run: npm ci
+
+      - name: List test params
+        run: |
+          echo "Mission ID: ${{ github.event.inputs.mission_id }}"
+          echo "Inclusions: ${{ github.event.inputs.inclusions }}"
+          echo "Exclusions: ${{ github.event.inputs.exclusions }}"
 
       - name: Run Playwright tests
         run: npm run test
