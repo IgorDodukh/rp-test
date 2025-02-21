@@ -4,6 +4,7 @@ import { ApiClient } from '../utils/apiClient';
 test.describe('User API Tests', () => {
   let apiClient: ApiClient;
   let apiContext: APIRequestContext;
+  const aaa: number = 1;
 
   test.beforeAll(async () => {
     // Manually create a new APIRequestContext

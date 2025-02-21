@@ -15,6 +15,8 @@
     "@eslint/js": "^9.20.0",
     "@playwright/test": "^1.50.1",
     "@reportportal/agent-js-playwright": "^5.1.11",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
     "allure-commandline": "^2.32.0",
     "allure-playwright": "^3.0.9",
     "eslint": "^9.20.1",
