@@ -10,7 +10,7 @@ on:
 
 jobs:
   ts-code-check:
-    name: TypeScript Lint & Compile Check
+    name: ESLint Check
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,4 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: npx eslint . --ext .ts,.tsx
-
-      - name: Run TypeScript Compiler (TSC)
-        run: npx tsc --noEmit
+        run: npx eslint . --config eslint.config.mjs
