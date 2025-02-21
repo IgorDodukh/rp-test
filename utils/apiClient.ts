@@ -1,7 +1,7 @@
 import { APIRequestContext, APIResponse, expect } from '@playwright/test';
 
 export class ApiClient {
-  constructor(private request: APIRequestContext) {}
+  constructor(private readonly request: APIRequestContext) { }
 
   async get(endpoint: string) {
     const response = await this.request.get(endpoint);

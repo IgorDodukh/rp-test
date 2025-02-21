@@ -5,9 +5,6 @@ test.describe('User API Tests', () => {
   let apiClient: ApiClient;
   let apiContext: APIRequestContext;
 
-  let users: any[];
-  let user: any;
-
   test.beforeAll(async () => {
     // Manually create a new APIRequestContext
     apiContext = await playwrightRequest.newContext({
